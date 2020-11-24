@@ -9,7 +9,6 @@
 
 //156 = valeur séquentielle de ref
 
-
 /** Une structure complexe est définie pour la bonne raison que la classe
  * complex proposée par g++ est très lente ! Le calcul est bien plus rapide
  * avec la petite structure donnée ci--dessous
