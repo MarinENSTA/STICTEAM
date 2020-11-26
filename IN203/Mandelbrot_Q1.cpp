@@ -9,6 +9,7 @@
 
 //156 = valeur séquentielle de ref
 
+
 /** Une structure complexe est définie pour la bonne raison que la classe
  * complex proposée par g++ est très lente ! Le calcul est bien plus rapide
  * avec la petite structure donnée ci--dessous
@@ -96,7 +97,6 @@ std::chrono::time_point<std::chrono::system_clock> start, end;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm globComm;
     MPI_Comm_dup(MPI_COMM_WORLD, &globComm);
-    int tag=100;
 
     if (H%nbproc !=0 ) { std::cerr << "H n'est pas divisible par nbproc" << std::endl ; MPI_Abort(globComm,EXIT_FAILURE) ; }
     
@@ -113,8 +113,6 @@ std::chrono::time_point<std::chrono::system_clock> start, end;
     }
 
     // MPI_Gather(pixels, pixels_loc, ...); 
-
-    MPI_Status status;
 
     MPI_Gather(&pixels_loc[0], pixels_loc.size(), MPI_INT, &pixels[0], W*H_loc, MPI_INT, 0, globComm);
 
@@ -147,8 +145,8 @@ void savePicture( const std::string& filename, int W, int H, const std::vector<i
 
 int main(int argc, char *argv[] ) 
  { 
-    const int W = 1000; //800
-    const int H = 1000;
+    const int W = 800; //800
+    const int H = 600;
     // Normalement, pour un bon rendu, il faudrait le nombre d'itérations
     // ci--dessous :
     //const int maxIter = 16777216;
@@ -173,4 +171,14 @@ int main(int argc, char *argv[] )
     //std::cout << "008 : ["<<rank<<"] sorti de la fonction de MPI"<<std::endl;
     return 0;
  }
-    
+ 
+ /*   
+Question 1 (GATHER) : 
+1cpu : 17.5
+2cpu : 8.91
+3cpu : 7.04
+4cpu : 4.95
+5cpu : 3.7
+6cpu : 4.4
+8cpu : 9.7
+*/
